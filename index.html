@@ -1,0 +1,228 @@
+<html>
+<head>
+
+    <title>ae0n java system design : mike croteau</title>
+
+    <title>ae0n java system design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta name="keywords" content="ae0n java system design, java, jvm, plsar, non war file"/>
+
+    <link href="icon.png" rel="icon" type="image/png" />
+
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon"/>
+
+
+    <style type="text/css">
+        /*
+	Great reset css style sheet. Thanks Eric Meyer.
+	Using a customized version of Eric Meyer's CSS Reset to give us an even, cross-browser playing field. More info:
+	http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+*/
+
+
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, font, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td {
+
+            border: 0;
+            font-size: 15px;
+            font-family: Arial;
+            margin: 0;
+            outline: 0;
+            padding: 0;
+            vertical-align: baseline;
+            color:#464646;
+        }
+
+        select, input[type=text]{color:#464646; font-size:15px;}
+
+        body {
+            line-height: 1.5;
+            background:url('/assets/bg.png') repeat; text-align:center;
+        }
+
+        :focus {
+            outline: 1px #c0c dotted;
+        }
+
+        body{background:url('assets/bg.png') repeat; text-align:center;}
+
+        #content-container{position:relative;width:740px;margin:auto;text-align:left;}
+        #emptydiv{height:140px;}
+        #content{height:444px; width:736px; background:url('assets/contentbg.png') no-repeat; margin:auto;}
+        #inner{height:400px; position:relative; }
+
+        p#punchline{position:absolute; top:60px; left:60px; width:250px; line-height:1.5em; color:#474747; font-size:15px;}
+
+
+        a#sayhi{background:url('assets/sayhi.png') no-repeat; position:absolute; top:0px; right:220px; width:79px; height:49px; z-index:2; opacity:.8}
+        a#sayhi:hover{opacity:1.0}
+
+
+        #hi{background:url('assets/himyname.png') no-repeat; position:absolute; top:30px; left:-400px; width:357px; height:77px;}
+        #dropaline{background:url('assets/dropaline.png') no-repeat; position:absolute; top:30px; left:-400px; width:357px; height:77px;}
+        #thanksforstoppingby{background:url('assets/thanksfordroppingby.png') no-repeat; position:absolute; top:30px; left:-400px; width:357px; height:77px;}
+
+        #me{background:url('assets/me.png') no-repeat; position:absolute; bottom:0px; right:0px; width:357px; height:502px;}
+
+
+        table#contactform{position:absolute; top:200px; right:0px;  border:solid 1px #ddd; padding:20px; z-index:1000}
+        table#contactform {border-collapse:collapse; display:none;}
+        table#contactform td, #contactform th{font-size:17px; padding:2px; font-weight:normal;}
+        table#contactform input, #contactform textarea{border:solid 1px #ddd; color:#464646; font-size:17px; padding:4px;font-family:Arial;}
+        #contactform textarea{height:100px; width:300px;}
+        table#contactform input[type="text"]{height:30px;padding-top:6px; width:230px;}
+
+
+        a#randrinc{background:url('/web/20100726102611im_/http://mikecroteau.com/images/randr.png'); width:114px; height:29px; position:absolute; top:370px; left:150px; display:block;}
+        a#derpaderr{background:url('/assets/derpaderr.png'); width:87px; height:55px; position:absolute; top:233px; left:230px; display:none;}
+        a#gfunkmedia{background:url('/web/20100726102611im_/http://mikecroteau.com/images/gfunkmedia.png'); width:124px; height:36px; position:absolute; top:250px; left:70px; display:block;}
+
+        a#sayhi2{background:url('assets/sayhi.png') no-repeat; width:79px; height:49px; opacity:.8}
+
+        td#submitformtd{text-align:right;}
+
+        a#submitform{background:#464646; color:#fff; text-decoration:none;padding:5px;}
+        a#submitform:hover{background:#777;}
+
+        #contacterrors{position:absolute; top:510px; right:20px;}
+        #contacterrors .error{color:#ff0000;}
+
+        #music{position:absolute; bottom:0px; left:5px;}
+        #music ul li{list-style:none;}
+        #music ul li a{font-size:10px; text-decoration:none; font-weight:bold;}
+
+
+    </style>
+
+    <!-- end stylesheets -->
+
+</head>
+<!-- end of head section -->
+<style type="text/css">
+    body {
+        margin-top:0 !important;
+        padding-top:0 !important;
+        /*min-width:800px !important;*/
+    }
+</style>
+
+
+<noscript>
+    <div>
+        <p>Whats your deal?  No Javascript in your browser... get with the times bro!</p>
+        <ol>
+            <li>You using an old web browser? If so upgrade, like now... here, thank me later <a href="https://web.archive.org/web/20100726102611/http://www.getfirefox.com/">Firefox</a>.</li>
+            <li>Ok, maybe you just have it disabled... <a href="https://web.archive.org/web/20100726102611/http://www.google.com/support/bin/answer.py?answer=23852">Enable it</a>.</li>
+        </ol>
+    </div>
+</noscript>
+
+
+<div id="wrapper">
+
+    <div id="content-container">
+
+        <a href="#" id="sayhi" title="Say Hi to Mike Croteau" style="display:none;"></a>
+
+
+        <div id="hi" style="display:none"></div>
+        <div id="dropaline" style="display:none"></div>
+        <div id="thanksforstoppingby" style="display:none"></div>
+
+        <div id="me" style="display:none"></div>
+
+        <div id="contacterrors"></div>
+
+        <form id="simpleform">
+            <table id="contactform" style="display:none">
+                <tr>
+                    <th>Name</th>
+                    <td><input type="text" name="name" id="name"></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td><input type="text" name="email" id="email"></td>
+                </tr>
+                <tr>
+                    <th colspan="2" id="right">Comment</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <textarea name="comment" id="comment"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="submitformtd">
+                        <a href="#" id="submitform">Submit</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+
+        <div id="emptydiv"></div>
+
+        <div id="content">
+
+            <div id="inner">
+
+                <p id="punchline">I work as a web developer.
+                    I enjoy Baseball, Techie stuff
+                    and every now and then, a good beer..</p>
+
+
+                <p style="font-family: 'Fira Code'"></p>
+
+<!--                <a href="https://web.archive.org/web/20100726102611/http://derpaderr.com/" id="derpaderr" title="Derpa Derr: Randomness"></a>-->
+<!--                <a href="https://web.archive.org/web/20100726102611/http://gfunkmedia.com/" id="gfunkmedia" title="<g:funkmedia>"></a>-->
+<!--                <a href="https://web.archive.org/web/20100726102611/http://www.randrinc.com/" id="randrinc" title="Randr Inc: Open Source App Developers"></a>-->
+
+<!--                <div id="music">-->
+<!--                    <ul>-->
+<!--                        <li><a href="https://web.archive.org/web/20100726102611/http://gfunkmedia.com/gfunkmedia/files/music/rightdowntheline.mp3">Right Down the Line</a></li>-->
+<!--                        <li><a href="https://web.archive.org/web/20100726102611/http://gfunkmedia.com/gfunkmedia/files/music/closer.mp3">Closer</a></li>-->
+<!--                        <li><a href="https://web.archive.org/web/20100726102611/http://gfunkmedia.com/gfunkmedia/files/music/restmychemistry.mp3">Rest My Chemistry</a></li>-->
+<!--                        <li><a href="https://web.archive.org/web/20100726102611/http://gfunkmedia.com/gfunkmedia/files/music/oncall.mp3">On Call</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="result"></div>
+
+<script type="text/javascript" src="assets/jquery.js"></script>
+<script type="text/javascript" src="assets/mike.croteau.js"></script>
+<!-- end javascript -->
+
+<script>
+    $(document).ready(function() {
+        //
+        // setupFormValidation();
+        //
+        // $("#sayhi").click(function(){
+        //     hideMeShowForm();
+        // });
+
+        showMeAndLinks();
+    });
+</script>
+
+
+
+</div>
+</html>
